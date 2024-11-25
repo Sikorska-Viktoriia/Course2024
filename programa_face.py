@@ -13,14 +13,14 @@ DEFAULT_ENCODINGS_PATH = Path("output/encodings.pkl")
 BOUNDING_BOX_COLOR = "blue"
 TEXT_COLOR = "white"
 
-# Обробка переривань
+
 def signal_handler(sig, frame):
     print("\n[INFO] Interrupted. Exiting gracefully.")
     sys.exit(0)
 
 signal.signal(signal.SIGINT, signal_handler)
 
-# Функція для захоплення зображення з камери
+
 def capture_image_from_camera():
     cap = cv2.VideoCapture(0)
     if not cap.isOpened():
@@ -49,7 +49,7 @@ def capture_image_from_camera():
     img = cv2.imread("captured_image.jpg")
     return cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
-# Функція для виявлення облич на зображенні
+
 def detect_faces(img):
     face_locations = face_recognition.face_locations(img)
     print(f"[INFO] Found {len(face_locations)} face(s) on the image.")
@@ -70,7 +70,7 @@ def train_model_by_camera(name):
             known_encodings.append(face_encoding)
             print("[INFO] Face added to model.")
 
-        # Закриваємо всі вікна перед очікуванням введення
+       
         cv2.destroyAllWindows()
 
         cont = input("[INFO] Do you want to capture another image? (y/n): ").lower()
@@ -84,7 +84,7 @@ def train_model_by_camera(name):
     print(f"[INFO] Model saved as {model_path}")
 
 
-# Аутентифікація користувача
+
 def authenticate_user():
     name = input("[INFO] Enter your name to authenticate: ")
     model_path = f"{name}_encodings.pickle"
@@ -113,7 +113,7 @@ def authenticate_user():
     else:
         print("[ERROR] Authentication failed. Face does not match.")
 
-# Вибір дії
+
 def main():
     action = input("[INFO] Do you want to (r)egister a new user or (a)uthenticate? (r/a): ").lower()
     if action == 'r':
