@@ -63,11 +63,12 @@ def capture_image_from_camera():
     return pil_image
 
 def detect_faces(img):
-    # Convert PIL Image to numpy.ndarray before passing to face_recognition
+    # Перетворюємо PIL Image в numpy.ndarray перед передачею в face_recognition
     img_np = np.array(img)
     face_locations = face_recognition.face_locations(img_np)
     print(f"[INFO] Found {len(face_locations)} face(s) on the image.")
     return face_locations
+
 
 
 def draw_face_landmarks(landmarks, draw):
@@ -131,11 +132,16 @@ def authenticate_user():
         print("[ERROR] No face detected in the image.")
         return
 
-    face_encoding = face_recognition.face_encodings(img)[0]
+    # Перетворюємо PIL Image на numpy.ndarray
+    img_np = np.array(img)
+    
+    # Тепер передаємо numpy.ndarray в face_recognition
+    face_encoding = face_recognition.face_encodings(img_np)[0]
     if face_recognition.compare_faces([known_encoding], face_encoding)[0]:
         print(f"[INFO] Authentication successful! Welcome {name}.")
     else:
         print("[ERROR] Authentication failed. Face does not match.")
+
 
 
 def main():
